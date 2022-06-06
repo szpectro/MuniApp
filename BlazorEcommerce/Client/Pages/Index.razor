@@ -3,16 +3,21 @@
 @page "/{categoryUrl}"
 @inject IProductService ProductService
 
-<PageTitle>My Shop</PageTitle>
+<PageTitle>Inicio - Municipalidad de Llanquihue</PageTitle>
+
 
 @if (SearchText == null && CategoryUrl == null)
 {
+    <ImportantSites/>
     <FeaturedProducts />
 }
 else
 {
     <ProductList />
 }
+
+
+
 
 @code {
     [Parameter]
