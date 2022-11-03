@@ -1,0 +1,80 @@
+﻿@page "/llanquihue"
+
+<br />
+<center>
+    <h2>Llanquihue</h2>
+</center>
+
+
+
+<br />
+<MudCarousel  Style="height:1000px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+    <center>
+        <MudCarouselItem Transition="transition" Color="Color.Transparent" Class="align-content-center">
+            <MudImage Fluid="true" Src="https://live.staticflickr.com/65535/49943516606_c52e198f8a_b.jpg" Elevation="25" Class="rounded-lg ma-4" />
+        </MudCarouselItem>
+     </center>
+     <center>
+        <MudCarouselItem Transition="transition" Class="align-content-center">
+            <MudImage Fluid="true" Src="https://live.staticflickr.com/65535/49943821117_5f3e28da40_b.jpg" Elevation="25" Class="rounded-lg ma-4" />
+        </MudCarouselItem>
+     </center>
+     <center>
+        <MudCarouselItem Transition="transition">
+            <MudImage Fluid="true" Src="https://live.staticflickr.com/65535/49943053203_3a3822d5c3_b.jpg" Elevation="25" Class="rounded-lg ma-4" />
+        </MudCarouselItem>
+    </center>   
+    <center>
+        <MudCarouselItem Transition="transition">
+            <MudImage Fluid="true" Src="https://live.staticflickr.com/65535/49943044368_fc7486dce2_b.jpg" Elevation="25" Class="rounded-lg ma-4" />
+        </MudCarouselItem>
+    </center>    
+    <center>
+        <MudCarouselItem Transition="transition">
+            <MudImage Fluid="true" Src="https://live.staticflickr.com/65535/49943505786_168c17522f_b.jpg" Elevation="25" Class="rounded-lg ma-4" />
+        </MudCarouselItem>
+    </center>
+   
+  
+</MudCarousel>
+
+
+<center>
+    <MudSelect @bind-Value="transition" Label="Transicion" Class="ma-2">
+        <MudSelectItem Value="@Transition.Fade">Difuminar</MudSelectItem>
+        <MudSelectItem Value="@Transition.Slide">Deslizar</MudSelectItem>
+        <MudSelectItem Value="@Transition.None">Ninguno</MudSelectItem>
+    </MudSelect>
+    <MudSwitch @bind-Checked="@arrows" Color="Color.Primary">Mostrar Flechas</MudSwitch>
+    <MudSwitch @bind-Checked="@bullets" Color="Color.Primary">Mostrar Puntos</MudSwitch>
+    <MudSwitch @bind-Checked="@enableSwipeGesture" Color="Color.Primary">Activar Cambio de gestos</MudSwitch>
+    <MudSwitch @bind-Checked="@autocycle" Color="Color.Primary">Ciclo Automatico </MudSwitch>
+
+</center>
+
+
+
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+@code {
+    private bool arrows = true;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Slide;
+}

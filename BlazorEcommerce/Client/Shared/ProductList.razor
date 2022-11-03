@@ -3,7 +3,14 @@
 
 @if (ProductService.Products == null || ProductService.Products.Count == 0)
 {
-    <span>@ProductService.Message</span>
+    <center>
+        <a>
+            <img src="https://media2.giphy.com/media/JEVqknUonZJWU/giphy.gif?cid=ecf05e472zcrnw17hylypr5l1ic1zdr07kamvi9s156iw0oh&rid=giphy.gif&ct=g" />
+        </a>
+        <br/>
+        <span>@ProductService.Message</span>
+    </center>
+    <br />
 }
 else
 {
@@ -31,7 +38,12 @@ else
                     <h5 class="price">
                         @GetPriceText(product)
                     </h5>
+                    
                 </div>
+                <div>
+                    <h6 style="color:darkslateblue">21-02-2022</h6>
+                </div>
+                
             </li>
         }
     </ul>

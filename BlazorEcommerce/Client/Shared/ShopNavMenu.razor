@@ -1,4 +1,5 @@
 ﻿@inject ICategoryService CategoryService
+@inject NavigationManager NavigationManager
 @implements IDisposable
 
 <div class="top-row ps-3 navbar navbar-dark navbar-toggler-wrapper">
@@ -17,23 +18,43 @@
             </NavLink>                        
                                   
         </div>
-        <div class="nav-item px-2">
-                
+        <div class="nav-item px-2">               
 
             <NavLink class="nav-link" href="municipalidad" Match="NavLinkMatch.All">
                 Municipalidad
+                <div class="d-flex align-center">
+                @*<MudText Class="ml-4">Municipalidad</MudText>*@
+                <MudMenu Label="Municipalidad" Icon="@Icons.Filled.ArrowDropDown" ActivationEvent="@MouseEvent.MouseOver" Class="mx-2" Color="Color.Surface">
+                    <ChildContent>                        
+                        <MudMenuItem>
+                            <NavLink href="municipalidad">
+                                 Autoridades de la Comuna
+                            </NavLink>
+                        </MudMenuItem>
+                        <MudMenuItem>
+                            <NavLink href="municipalidad">
+                                 Departamentos Municipales
+                            </NavLink>
+                        </MudMenuItem>
+                        <MudMenuItem>
+                            <NavLink href="contact">
+                                Contacto
+                            </NavLink>
+                        </MudMenuItem>                        
+                    </ChildContent>
+                </MudMenu>                
+                </div>
             </NavLink>
+            
           
         </div>
-        <div class="nav-item px-2">
-                
+        <div class="nav-item px-2">                
             <NavLink class="nav-link" href="noticias" Match="NavLinkMatch.All">
                 Noticias
-            </NavLink>
-          
+            </NavLink>          
         </div>
         <div class="nav-item px-2">
-                <NavLink class="nav-link" href="transparencia" Match="NavLinkMatch.All">
+                <NavLink class="nav-link" href="https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=MU142" Match="NavLinkMatch.All">
                 Transparencia
             </NavLink>
 
@@ -47,6 +68,9 @@
 
           
         </div>
+        
+
+
         @foreach (var category in CategoryService.Categories)
         {
             <div class="nav-item px-2">
@@ -59,6 +83,10 @@
 </div>
 
 @code {
+  
+
+  
+
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
@@ -78,4 +106,6 @@
     {
         CategoryService.OnChange -= StateHasChanged;
     }
+ 
+
 }

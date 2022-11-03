@@ -14,21 +14,21 @@ else
 {
     @if (product.Editing)
     {
-        <h3>Edit "@product.Title"</h3>
+        <h3>Editar "@product.Title"</h3>
     }
     else if (product.IsNew)
     {
-        <h3>Create a new Product</h3>
+        <h3>Crea una nueva entrada</h3>
     }
 
     <EditForm Model="product" OnValidSubmit="AddOrUpdateProduct">
         <DataAnnotationsValidator></DataAnnotationsValidator>
         <div class="mb-0">
-            <label for="title">Title</label>
+            <label for="title">Titulo</label>
             <InputText id="title" @bind-Value="product.Title" class="form-control"></InputText>
         </div>
         <div class="mb-0">
-            <label for="imageUrl">Image Url</label>
+            <label for="imageUrl">Imagen Url</label>
             <InputText id="imageUrl" @bind-Value="product.ImageUrl" class="form-control"></InputText>
         </div>
         <div class="mb-0" style="display: flex; flex-wrap: wrap; flex-direction: row; justify-content: center;">
@@ -56,15 +56,15 @@ else
             }
         </div>
         <div class="mb-0">
-            <label for="images">Image(s)</label>
+            <label for="images">Imagen</label>
             <InputFile id="images" OnChange="OnFileChange" multiple class="form-control"></InputFile>
         </div>
         <div class="mb-0">
-            <label for="description">Description</label>
-            <InputTextArea id="description" @bind-Value="product.Description" class="form-control"></InputTextArea>
+            <label for="description">Descripción</label>
+            <InputTextArea id="description" @bind-Value="product.Description" class="form-control" rows="5"></InputTextArea>
         </div>
         <hr />
-        <div class="header">
+        <div hidden class="header">
             <div class="col">Product Type / Variant</div>
             <div class="col">Price</div>
             <div class="col">Original Price</div>
@@ -73,7 +73,7 @@ else
         </div>
         @foreach (var variant in product.Variants)
         {
-            <div class="row">
+            <div hidden class="row">
                 <div class="col">
                     <InputSelect disabled="@variant.Deleted" @bind-Value="variant.ProductTypeId" class="form-control">
                         @foreach (var productType in ProductTypeService.ProductTypes)
@@ -91,14 +91,14 @@ else
         <div class="col col-visible">
             <InputCheckbox @bind-Value="variant.Visible" style="transform:scale(1.5,1.5);" disabled="@variant.Deleted"></InputCheckbox>
         </div>
-        <div class="col">
+        <div hidden class="col">
             <button type="button" class="btn btn-primary" disabled="@variant.Deleted" @onclick="@(() => RemoveVariant(variant.ProductTypeId))">
                 <i class="oi oi-trash"></i>
             </button>
         </div>
     </div>
         }
-        <button type="button" class="btn btn-primary" @onclick="AddVariant">
+        <button  hidden type="button" class="btn btn-primary" @onclick="AddVariant">
             <i class="oi oi-plus"></i> Add Variant
         </button>
         <hr />
@@ -114,7 +114,7 @@ else
     <hr />
     <div class="form-check">
         <InputCheckbox id="featured" @bind-Value="product.Featured" class="form-check-input"></InputCheckbox>
-        <label for="featured" class="form-check-label">Featured</label>
+        <label for="featured" class="form-check-label">Destacado</label>
     </div>
     <div class="form-check">
         <InputCheckbox id="visible" @bind-Value="product.Visible" class="form-check-input"></InputCheckbox>
@@ -127,11 +127,13 @@ else
     @if (!product.IsNew)
     {
         <button type="button" class="btn btn-danger float-start" @onclick="DeleteProduct">
-            Delete Product
+            Eliminar Entrada
         </button>
     }
 }
 
+<br />
+<br />
 @code {
     [Parameter]
     public int Id { get; set; }
@@ -152,7 +154,7 @@ else
         if (Id == 0)
         {
             product = new Product { IsNew = true };
-            btnText = "Create Product";
+            btnText = "Crear entrada";
         }
         else
         {
@@ -164,7 +166,7 @@ else
             }
             product = dbProduct;
             product.Editing = true;
-            btnText = "Update Product";
+            btnText = "Actualizar Entrada";
         }
         loading = false;
     }
@@ -210,7 +212,7 @@ else
     async void DeleteProduct()
     {
         bool confirmed = await JSRuntime.InvokeAsync<bool>("confirm",
-            $"Do you really want to delete '{product.Title}'?");
+            $"Estas seguro de querer eliminar la entrada '{product.Title}'?");
         if (confirmed)
         {
             await ProductService.DeleteProduct(product);

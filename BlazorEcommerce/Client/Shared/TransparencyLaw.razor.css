@@ -1,4 +1,9 @@
-﻿.container {
+﻿.top-row {
+    
+    background-color:orangered;
+}
+
+.container {
     display: flex;
     flex-direction: row;
     overflow-x: auto;
@@ -6,7 +11,7 @@
 }
 
 img {
-    max-width: 160px;
+    max-width: 200px;
     max-height: 200px;
     border-radius: 6px;
     transition: transform .2s;
@@ -21,9 +26,10 @@ img {
     margin: 10px;
     text-align: center;
     padding: 10px;
-    border: 2.5px solid lightgray;
+    border: 1px solid lightgray;
     border-radius: 10px;
-    max-width: 200px;
+    max-width: 600px;
+    background-color:white;
 }
 
 @media (max-width: 1023.98px) {

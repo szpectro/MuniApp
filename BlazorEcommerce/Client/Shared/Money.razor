@@ -1,0 +1,37 @@
+﻿@inject IMoneyService MoneyService
+
+
+@if(valores == null)
+{
+    <span>@message</span>
+}
+else{
+    <div class="container">
+        
+                <center>
+            <MudChip Class="" Variant="Variant.Outlined"><b>USD : @valores.dolar.valor $CLP</b></MudChip>
+            <MudChip Variant="Variant.Outlined"><b>UTM : @valores.utm.valor $CLP</b></MudChip>
+            <MudChip Variant="Variant.Outlined"><b>UF : @valores.uf.valor $CLP</b></MudChip>
+                </center>
+            
+        
+     </div>
+}
+    
+
+@code {
+    private Valores? valores = null;
+    private string message = string.Empty;
+    private int currentTypeId = 1;
+
+    [Parameter]
+    public int Id { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await MoneyService.GetValores();
+        valores = result;
+    }
+   
+}

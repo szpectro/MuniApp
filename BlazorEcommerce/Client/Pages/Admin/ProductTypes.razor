@@ -3,7 +3,7 @@
 @implements IDisposable
 @attribute [Authorize(Roles = "Admin")]
 
-<h3>Product Types</h3>
+<h3>Tipo de tags</h3>
 
 @foreach (var productType in ProductTypeService.ProductTypes)
 {
@@ -37,7 +37,7 @@
     }
 }
 <button class="btn btn-primary" @onclick="CreateNewProductType">
-    <i class="oi oi-plus"></i> Add new product type
+    <i class="oi oi-plus"></i> Agregar 
 </button>
 
 @code {

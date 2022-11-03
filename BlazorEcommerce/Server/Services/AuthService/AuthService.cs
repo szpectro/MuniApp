@@ -32,12 +32,12 @@ namespace BlazorEcommerce.Server.Services.AuthService
             if (user == null)
             {
                 response.Success = false;
-                response.Message = "User not found.";
+                response.Message = "Usuario Incorrecto";
             }
             else if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
                 response.Success = false;
-                response.Message = "Wrong password.";
+                response.Message = "Contraseña Incorrecta";
             }
             else
             {
@@ -54,7 +54,7 @@ namespace BlazorEcommerce.Server.Services.AuthService
                 return new ServiceResponse<int>
                 {
                     Success = false,
-                    Message = "User already exists."
+                    Message = "El Usuario ya existe."
                 };
             }
 
@@ -62,11 +62,12 @@ namespace BlazorEcommerce.Server.Services.AuthService
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return new ServiceResponse<int> { Data = user.Id, Message = "Registration successful!" };
+            return new ServiceResponse<int> { Data = user.Id, Message = "Usuario registrado exitosamente!" };
         }
 
         public async Task<bool> UserExists(string email)
@@ -131,7 +132,7 @@ namespace BlazorEcommerce.Server.Services.AuthService
                 return new ServiceResponse<bool>
                 {
                     Success = false,
-                    Message = "User not found."
+                    Message = "Usuario no encontrado."
                 };
             }
 
@@ -142,7 +143,7 @@ namespace BlazorEcommerce.Server.Services.AuthService
 
             await _context.SaveChangesAsync();
 
-            return new ServiceResponse<bool> { Data = true, Message = "Password has been changed." };
+            return new ServiceResponse<bool> { Data = true, Message = "La contraseña a sido cambiada." };
         }
 
         public async Task<User> GetUserByEmail(string email)

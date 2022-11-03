@@ -60,7 +60,7 @@
             PageCount = 0;
 
             if (Products.Count == 0)
-                Message = "No products found";
+                Message = "No se encontro esta categoria";
 
             ProductsChanged.Invoke();
         }
@@ -83,7 +83,7 @@
                 CurrentPage = result.Data.CurrentPage;
                 PageCount = result.Data.Pages;
             }
-            if (Products.Count == 0) Message = "No products found.";
+            if (Products.Count == 0) Message = "Lo sentimos. No se encontro ningun producto.";
             ProductsChanged?.Invoke();
         }
 
