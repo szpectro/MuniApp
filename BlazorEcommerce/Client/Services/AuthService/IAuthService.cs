@@ -1,4 +1,6 @@
-﻿namespace BlazorEcommerce.Client.Services.AuthService
+﻿using BlazorEcommerce.Shared;
+
+namespace BlazorEcommerce.Client.Services.AuthService
 {
     public interface IAuthService
     {
@@ -6,5 +8,6 @@
         Task<ServiceResponse<string>> Login(UserLogin request);
         Task<ServiceResponse<bool>> ChangePassword(UserChangePassword request);
         Task<bool> IsUserAuthenticated();
+        Task<ServiceResponse<int>> RecoverPassword(ForgotPassword request);
     }
 }

@@ -28,6 +28,12 @@
             return await result.Content.ReadFromJsonAsync<ServiceResponse<string>>();
         }
 
+        public async Task<ServiceResponse<int>> RecoverPassword(ForgotPassword request)
+        {
+            var result = await _http.PostAsJsonAsync("api/auth/recoverpassword", request);
+            return await result.Content.ReadFromJsonAsync<ServiceResponse<int>>(); ;
+        }
+
         public async Task<ServiceResponse<int>> Register(UserRegister request)
         {
             var result = await _http.PostAsJsonAsync("api/auth/register", request);
