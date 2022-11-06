@@ -1,7 +1,14 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using BlazorEcommerce.Server.Migrations;
+using BlazorEcommerce.Shared;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using MimeKit.Text;
+using MimeKit;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace BlazorEcommerce.Server.Services.AuthService
 {
@@ -149,6 +156,28 @@ namespace BlazorEcommerce.Server.Services.AuthService
         public async Task<User> GetUserByEmail(string email)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
+        }
+
+        public async Task<ServiceResponse<int>> RecoverPassword(string email)
+        {
+            var userExists = await GetUserByEmail(email);
+            if (userExists != null)
+            {               
+                return new ServiceResponse<int> { Data = 1, Message = "Usuario encontrado" };
+            }
+            else 
+            {
+                return new ServiceResponse<int>
+                {
+                    Success = false,
+                    Message = "El Usuario no se encontró"
+                };
+            }      
+        }
+
+        public Task<ServiceResponse<bool>> GetUserByEmailResponse()
+        {
+            throw new NotImplementedException();
         }
     }
 }

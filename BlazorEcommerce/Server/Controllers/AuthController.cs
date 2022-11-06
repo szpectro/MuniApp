@@ -10,11 +10,14 @@ namespace BlazorEcommerce.Server.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
+        private readonly IEmailService _emailService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, IEmailService emailService)
         {
             _authService = authService;
+            _emailService = emailService;
         }
+
 
         [HttpPost("register")]
         public async Task<ActionResult<ServiceResponse<int>>> Register(UserRegister request)
@@ -47,12 +50,33 @@ namespace BlazorEcommerce.Server.Controllers
             return Ok(response);
         }
 
+        [HttpPost("recoverpassword")]
+        public async Task<ActionResult<ServiceResponse<bool>>> RecoverPassword(ForgotPassword request)
+        {
+            var response = await _authService.RecoverPassword(request.Email);
+            EmailDto emailInfo = new EmailDto();
+            emailInfo.To = request.Email;
+            emailInfo.Subject = "tome su token";
+            emailInfo.Body = "el token es este";
+            
+            if (response.Success == true)
+            {
+                var responseCorreo = await _emailService.SendEmailLink(emailInfo);
+                return Ok(response);
+            }
+            else 
+            {
+                
+                return BadRequest(response);
+            }
+            
+        }
+
         [HttpPost("change-password"), Authorize]
         public async Task<ActionResult<ServiceResponse<bool>>> ChangePassword([FromBody] string newPassword)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var response = await _authService.ChangePassword(int.Parse(userId), newPassword);
-
             if (!response.Success)
             {
                 return BadRequest(response);
